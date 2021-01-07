@@ -1,0 +1,6 @@
+{
+    "require": {
+        "hyperf/guzzle": "^2.1",
+      "ext-json": "*"
+    }
+}
