@@ -1,6 +1,7 @@
 {
+    "name": "yellowseatag/babybus_account",
+    "type": "library",
     "require": {
-        "hyperf/guzzle": "^2.1",
-      "ext-json": "*"
+        "hyperf/guzzle": "^2.1"
     }
 }

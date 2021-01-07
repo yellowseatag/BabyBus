@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "02ff9b0b58feac5be4b84ebbb6c8ed89",
+    "content-hash": "665b9e8e3945b8bce03f22d425ac5bb4",
     "packages": [
         {
             "name": "doctrine/inflector",
@@ -476,16 +476,16 @@
         },
         {
             "name": "hyperf/guzzle",
-            "version": "v2.1.0",
+            "version": "v2.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hyperf/guzzle.git",
-                "reference": "692bbeeaaa9cc56abdd7b53419baf1449f5f2846"
+                "reference": "dccd7e5262e470425f40f7d5c772bfd8a2baf694"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hyperf/guzzle/zipball/692bbeeaaa9cc56abdd7b53419baf1449f5f2846",
-                "reference": "692bbeeaaa9cc56abdd7b53419baf1449f5f2846",
+                "url": "https://api.github.com/repos/hyperf/guzzle/zipball/dccd7e5262e470425f40f7d5c772bfd8a2baf694",
+                "reference": "dccd7e5262e470425f40f7d5c772bfd8a2baf694",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -534,9 +534,9 @@
             ],
             "support": {
                 "issues": "https://github.com/hyperf/guzzle/issues",
-                "source": "https://github.com/hyperf/guzzle/tree/v2.1.0"
+                "source": "https://github.com/hyperf/guzzle/tree/v2.1.1"
             },
-            "time": "2020-12-27T06:12:45+00:00"
+            "time": "2020-12-28T03:05:18+00:00"
         },
         {
             "name": "hyperf/utils",
