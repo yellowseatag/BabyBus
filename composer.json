@@ -1,7 +1,13 @@
 {
     "name": "yellowseatag/babybus_account",
+    "description": "the babybus framework",
     "type": "library",
     "require": {
         "hyperf/guzzle": "^2.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Hhb\\BabyBus\\": "src"
+        }
     }
 }
