@@ -2,6 +2,7 @@
     "name": "yellowseatag/babybus_account",
     "description": "the babybus framework",
     "type": "library",
+    "license": "MIT",
     "require": {
         "hyperf/guzzle": "^2.1"
     },
