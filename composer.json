@@ -4,7 +4,7 @@
     "type": "library",
     "license": "MIT",
     "require": {
-        "hyperf/guzzle": "^2.1",
+        "hyperf/guzzle": "v2.0.21",
         "ext-json": "*"
     },
     "autoload": {
