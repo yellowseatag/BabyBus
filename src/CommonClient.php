@@ -1,10 +1,8 @@
 <?php
 namespace BabyBus\Account;
 
-use BabyBus\Account\Util\Container;
+use EasySwoole\HttpClient\HttpClient;
 use Exception;
-use GuzzleHttp\Exception\GuzzleException;
-use Hyperf\Guzzle\ClientFactory;
 
 class CommonClient
 {
@@ -12,26 +10,11 @@ class CommonClient
 
     protected $accountApiUrl;
 
-    /**
-     * @var \Hyperf\Guzzle\ClientFactory
-     */
-    private static $clientFactory;
-
-
     public function __construct($client_info)
     {
         $this->accountApiUrl = env('ACCOUNT_URL');
         $this->client_info = $client_info;
     }
-
-    protected static function getInstance(){
-        if (self::$clientFactory instanceof ClientFactory){
-            return self::$clientFactory;
-        }
-        self::$clientFactory = new ClientFactory(Container::getInstance());
-        return self::$clientFactory;
-    }
-
 
     protected function setHeader($params, $clientHeaderInfo){
         return [
@@ -63,16 +46,7 @@ class CommonClient
         if (empty($this->accountApiUrl)){
             throw new Exception('请配置ACCOUNT_URL');
         }
-        // $options 等同于 GuzzleHttp\Client 构造函数的 $config 参数
-        $options = [
-            'body'=>json_encode($params),
-            'headers'=>$this->setHeader($params, $this->buildFamilyHeader())
-        ];
-        // $client 为协程化的 GuzzleHttp\Client 对象
-        try {
-            return self::getInstance()->create($options)->post($url)->getBody();
-        } catch (GuzzleException $e) {
-            throw new Exception($e->getMessage());
-        }
+        $headers = $this->setHeader($params, $this->buildFamilyHeader());
+        return (new HttpClient($url))->setHeaders($headers, true, false)->postJson(json_encode($params))->getBody();
     }
 }

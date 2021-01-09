@@ -3,9 +3,7 @@
 
 namespace BabyBus\Account\Util;
 
-
-use Hyperf\Contract\ContainerInterface;
-
+use Psr\Container\ContainerInterface;
 
 class Container implements ContainerInterface
 {
