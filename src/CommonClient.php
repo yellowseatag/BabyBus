@@ -1,5 +1,5 @@
 <?php
-namespace Hhb\BabyBus;
+namespace BabyBus\Account;
 
 use Exception;
 use GuzzleHttp\Exception\GuzzleException;
@@ -17,10 +17,10 @@ class CommonClient
     private $clientFactory;
 
 
-    public function __construct( ClientFactory $clientFactory, $client_info, $accountApiUrl)
+    public function __construct( ClientFactory $clientFactory, $client_info)
     {
+        $this->accountApiUrl = env('ACCOUNT_URL');
         $this->client_info = $client_info;
-        $this->accountApiUrl = $accountApiUrl;
         $this->clientFactory = $clientFactory;
     }
 
@@ -53,6 +53,9 @@ class CommonClient
 
     public function execPost($url, $params)
     {
+        if (empty($this->accountApiUrl)){
+            throw new Exception('请配置ACCOUNT_URL');
+        }
         // $options 等同于 GuzzleHttp\Client 构造函数的 $config 参数
         $options = [
             'body'=>json_encode($params),

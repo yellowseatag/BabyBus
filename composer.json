@@ -4,11 +4,12 @@
     "type": "library",
     "license": "MIT",
     "require": {
-        "hyperf/guzzle": "^2.1"
+        "hyperf/guzzle": "^2.1",
+        "ext-json": "*"
     },
     "autoload": {
         "psr-4": {
-            "Hhb\\BabyBus\\": "src"
+            "BabyBus\\Account\\": "src"
         }
     }
 }

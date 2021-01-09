@@ -1,8 +1,8 @@
 <?php
 
-namespace Hhb\BabyBus\Base\GoodsOrder;
+namespace BabyBus\Account\Base\GoodsOrder;
 
-use Hhb\BabyBus\CommonClient;
+use BabyBus\Account\CommonClient;
 
 class Client extends CommonClient
 {

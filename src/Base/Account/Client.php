@@ -1,8 +1,8 @@
 <?php
 
-namespace Hhb\BabyBus\Base\Account;
+namespace BabyBus\Account\Base\Account;
 
-use Hhb\BabyBus\CommonClient;
+use BabyBus\Account\CommonClient;
 
 class Client extends CommonClient
 {
