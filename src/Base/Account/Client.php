@@ -247,7 +247,7 @@ class Client extends CommonClient
      */
     public function sendSmsCaptcha(string $phone)
     {
-        $url = $this->accountApiUrl . "/SendSmsCaptcha";
+        $url = $this->accountApiUrl . "/AppSync/SendSmsCaptcha";
         $params = [
             'Phone' => $phone,
         ];

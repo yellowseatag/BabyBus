@@ -1,6 +1,7 @@
 <?php
 namespace BabyBus\Account;
 
+use BabyBus\Account\Util\Container;
 use Exception;
 use GuzzleHttp\Exception\GuzzleException;
 use Hyperf\Guzzle\ClientFactory;
@@ -14,16 +15,22 @@ class CommonClient
     /**
      * @var \Hyperf\Guzzle\ClientFactory
      */
-    private $clientFactory;
+    private static $clientFactory;
 
 
-    public function __construct( ClientFactory $clientFactory, $client_info)
+    public function __construct($client_info)
     {
         $this->accountApiUrl = env('ACCOUNT_URL');
         $this->client_info = $client_info;
-        $this->clientFactory = $clientFactory;
     }
 
+    protected static function getInstance(){
+        if (self::$clientFactory instanceof ClientFactory){
+            return self::$clientFactory;
+        }
+        self::$clientFactory = new ClientFactory(Container::getInstance());
+        return self::$clientFactory;
+    }
 
 
     protected function setHeader($params, $clientHeaderInfo){
@@ -59,35 +66,13 @@ class CommonClient
         // $options 等同于 GuzzleHttp\Client 构造函数的 $config 参数
         $options = [
             'body'=>json_encode($params),
-            'headers'=>$this->client_info
+            'headers'=>$this->setHeader($params, $this->buildFamilyHeader())
         ];
         // $client 为协程化的 GuzzleHttp\Client 对象
         try {
-            return $this->clientFactory->create($options)->post($url)->getBody();
+            return self::getInstance()->create($options)->post($url)->getBody();
         } catch (GuzzleException $e) {
             throw new Exception($e->getMessage());
         }
-    }
-
-
-    /**
-     * 成功
-     * @param $data
-     * @param string $message
-     * @return array
-     */
-    public function returnSuccess($data, $message='')
-    {
-        return  ['status'=>1, 'info'=>$message, 'data'=>$data];
-    }
-
-    /**
-     * 失败
-     * @param $message
-     * @return array
-     */
-    public function returnFail($message)
-    {
-        return ['status'=>0, 'info'=>$message, 'data'=>[]];
     }
 }
