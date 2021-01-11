@@ -1,10 +1,10 @@
 <?php
 
-namespace BabyBus\Account\Base\GoodsOrder;
+namespace BabyBus\Account\Base;
 
 use BabyBus\Account\CommonClient;
 
-class Client extends CommonClient
+class GoodsOrderClient extends CommonClient
 {
 
     /**
@@ -15,7 +15,7 @@ class Client extends CommonClient
     public function getVipPackage()
     {
         $url = $this->accountApiUrl . "/AppSync/GetVipPackage";
-        return $this->execPost($url, []);
+        return $this->request($url, []);
     }
 
     /**
@@ -32,7 +32,7 @@ class Client extends CommonClient
             'OrderNo' => $order_num,
             'TradeNo' => $service_order_num
         ];
-        return $this->execPost($url, $params);
+        return $this->request($url, $params);
     }
 
     /**
@@ -55,7 +55,7 @@ class Client extends CommonClient
             'VerID' => empty($param['app_version']) ? 0 : $param['app_version'],
             'VerCode' => '',
         ];
-        return $this->execPost($url, $params);
+        return $this->request($url, $params);
     }
 
     /**
@@ -80,7 +80,7 @@ class Client extends CommonClient
         ];
         $param['vip_start'] && $params['StartDate'] = $param['vip_start'];
         $param['vip_end'] && $params['EndDate'] = $param['vip_end'];
-        return $this->execPost($url, $params);
+        return $this->request($url, $params);
     }
 
     /**
@@ -90,6 +90,6 @@ class Client extends CommonClient
      */
     public function getOrderList(){
         $url = $this->accountApiUrl . "/AppSync/GetOrderList";
-        return $this->execPost($url, []);
+        return $this->request($url, []);
     }
 }

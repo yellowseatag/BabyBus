@@ -2,6 +2,7 @@
 namespace BabyBus\Account;
 
 use EasySwoole\HttpClient\HttpClient;
+use EasySwoole\Spl\SplBean;
 use Exception;
 
 class CommonClient
@@ -10,7 +11,7 @@ class CommonClient
 
     protected $accountApiUrl;
 
-    public function __construct($client_info)
+    public function __construct(SplBean $client_info)
     {
         $this->accountApiUrl = env('ACCOUNT_URL');
         $this->client_info = $client_info;
@@ -26,14 +27,19 @@ class CommonClient
     }
 
     protected function buildFamilyHeader(){
-        return [
-            'AccountID'=>0,
-            'PlatForm'=>($this->client_info->platform == 2) ? 11 : $this->client_info->platform,
-            'CHCode'=>$this->client_info->channel ?? '',
-            'ProductID'=> !empty($this->client_info->app_product_id) ? $this->client_info->app_product_id : 0,
-            'VerCode'=>$this->client_info->ver ?? '',
-            'VerID'=>intval(str_replace('.','',$this->client_info->ver))
-        ];
+        if (is_array($this->client_info)){
+            return $this->client_info;
+        }else{
+            return $this->client_info->toArray();
+        }
+//        return [
+//            'AccountID'=>0,
+//            'PlatForm'=>($this->client_info->platform == 2) ? 11 : $this->client_info->platform,
+//            'CHCode'=>$this->client_info->channel ?? '',
+//            'ProductID'=> !empty($this->client_info->app_product_id) ? $this->client_info->app_product_id : 0,
+//            'VerCode'=>$this->client_info->ver ?? '',
+//            'VerID'=>intval(str_replace('.','',$this->client_info->ver))
+//        ];
     }
 
     private function bodySign($param){
@@ -41,12 +47,31 @@ class CommonClient
         return md5(json_encode($param).$md5_key);
     }
 
-    public function execPost($url, $params)
+    public function request($url, $params)
     {
-        if (empty($this->accountApiUrl)){
-            throw new Exception('请配置ACCOUNT_URL');
+        try {
+            if (empty($this->accountApiUrl)){
+                throw new Exception('请配置ACCOUNT_URL');
+            }
+            $headers = $this->setHeader($params, $this->buildFamilyHeader());
+            $result = (new HttpClient($url))->setHeaders($headers, true, false)->postJson(json_encode($params))->getBody();
+            $obj = $this->proccessResult($result);
+        }catch(Exception $e){
+            return array(
+                'ResultCode' => 'RequestFail',
+                'ResultMessage' => $e->getMessage(),
+            );
         }
-        $headers = $this->setHeader($params, $this->buildFamilyHeader());
-        return (new HttpClient($url))->setHeaders($headers, true, false)->postJson(json_encode($params))->getBody();
+        return $obj;
+
+    }
+
+    /**
+     * 格式化结果
+     * @param $content string
+     * @return mixed
+     */
+    protected function proccessResult($content){
+        return json_decode($content, true);
     }
 }

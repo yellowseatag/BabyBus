@@ -1,10 +1,10 @@
 <?php
 
-namespace BabyBus\Account\Base\Account;
+namespace BabyBus\Account\Base;
 
 use BabyBus\Account\CommonClient;
 
-class Client extends CommonClient
+class AccountClient extends CommonClient
 {
     /**
      * 一键登录
@@ -20,7 +20,7 @@ class Client extends CommonClient
             'Token' => $access_token,
             'LoginIP' => $ip,
         ];
-        return $this->execPost($url, $params);
+        return $this->request($url, $params);
     }
 
     /**
@@ -37,7 +37,7 @@ class Client extends CommonClient
             'Token' => $access_token,
             'LoginIP' => $ip,
         ];
-        return $this->execPost($url, $params);
+        return $this->request($url, $params);
     }
 
     /**
@@ -54,7 +54,7 @@ class Client extends CommonClient
             'Phone' => $phone,
             'LoginIP' => $ip,
         ];
-        return $this->execPost($url, $params);
+        return $this->request($url, $params);
     }
 
     /**
@@ -65,7 +65,7 @@ class Client extends CommonClient
     public function syncLoginInfo()
     {
         $url = $this->accountApiUrl . "/AppSync/LoginInfo";
-        $result = $this->execPost($url, []);
+        $result = $this->request($url, []);
         return json_decode($result,true);
     }
 
@@ -87,7 +87,7 @@ class Client extends CommonClient
             'CaptchaNo' => $code,
             'LoginIP' =>  $ip
         ];
-        return $this->execPost($url, $params);
+        return $this->request($url, $params);
     }
 
     /**
@@ -104,7 +104,7 @@ class Client extends CommonClient
             'Token' => $token,
             'LoginIP' =>  $ip
         ];
-        return $this->execPost($url, $params);
+        return $this->request($url, $params);
     }
 
     /**
@@ -125,7 +125,7 @@ class Client extends CommonClient
             'CaptchaNo' => $code,
             'LoginIP' =>  $ip
         ];
-        return $this->execPost($url, $params);
+        return $this->request($url, $params);
     }
 
     /**
@@ -136,7 +136,7 @@ class Client extends CommonClient
     public function loginOut()
     {
         $url = $this->accountApiUrl . "/AppSync/LoginOut";
-        return $this->execPost($url, []);
+        return $this->request($url, []);
     }
 
     /**
@@ -153,7 +153,7 @@ class Client extends CommonClient
             'Phone' => $phone,
             'CaptchaNo' => $code,
         ];
-        return $this->execPost($url, $params);
+        return $this->request($url, $params);
     }
 
     /**
@@ -164,7 +164,7 @@ class Client extends CommonClient
     public function loginInfo()
     {
         $url = $this->accountApiUrl . "/AppSync/LoginInfo";
-        return $this->execPost($url, []);
+        return $this->request($url, []);
     }
 
     /**
@@ -181,7 +181,7 @@ class Client extends CommonClient
             'OldPassword' => $oldPassword,
             'NewPassword' => $newPassword
         ];
-        return $this->execPost($url, $params);
+        return $this->request($url, $params);
     }
 
     /**
@@ -200,7 +200,7 @@ class Client extends CommonClient
             'Password' => $password,
             'CaptchaNo' => $code
         ];
-        return $this->execPost($url, $params);
+        return $this->request($url, $params);
     }
 
     /**
@@ -219,7 +219,7 @@ class Client extends CommonClient
             'LiveTimeNum' => $live_num,
             'IsSpecial' => $is_special
         ];
-        return $this->execPost($url, $params);
+        return $this->request($url, $params);
     }
 
     /**
@@ -234,7 +234,7 @@ class Client extends CommonClient
         $params = [
             'Code' => $cdkey, //cdkey
         ];
-        return $this->execPost($url, $params);
+        return $this->request($url, $params);
     }
 
     /**
@@ -249,7 +249,7 @@ class Client extends CommonClient
         $params = [
             'Phone' => $phone,
         ];
-        return $this->execPost($url, $params);
+        return $this->request($url, $params);
     }
 
     /**
@@ -266,7 +266,7 @@ class Client extends CommonClient
             'Phone' => $phone,
             'CaptchaNo' => $code
         ];
-        return $this->execPost($url, $params);
+        return $this->request($url, $params);
     }
 
 }
